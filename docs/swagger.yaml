@@ -1,0 +1,214 @@
+basePath: /api/v1
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  main.Song:
+    properties:
+      Author:
+        example: Song author
+        type: string
+      Description:
+        example: Song description text
+        type: string
+      Link:
+        example: https://www.youtube.com/watch?v=b_h8kh-PEfI9999
+        type: string
+      ReleaseDate:
+        example: "2006-02-01T15:04:05Z"
+        type: string
+      SongGroup:
+        example: Song group
+        type: string
+      Title:
+        example: Song title
+        type: string
+    type: object
+  model.Song:
+    properties:
+      Author:
+        example: Song author
+        type: string
+      Description:
+        example: Song description text
+        type: string
+      Link:
+        example: https://www.youtube.com/watch?v=b_h8kh-PEfI9999
+        type: string
+      ReleaseDate:
+        example: "2006-02-01T15:04:05Z"
+        type: string
+      SongGroup:
+        example: Song group
+        type: string
+      Title:
+        example: Song title
+        type: string
+      Verses:
+        items:
+          $ref: '#/definitions/model.Verses'
+        type: array
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  model.Verses:
+    properties:
+      Text:
+        example: Verse text
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+info:
+  contact:
+    email: ladovod@gmail.com
+    name: Dmitrii
+  description: Swagger API for Songs library API.
+  termsOfService: http://swagger.io/terms/
+  title: Songs library API
+  version: "1.0"
+paths:
+  /song:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.Song'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+      summary: Create a song
+  /song/{id}:
+    delete:
+      parameters:
+      - description: PAGE
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+      summary: Delete a song by id
+    get:
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      summary: Retrieves song based on given ID
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.Song'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+      summary: Updates song based on given ID
+  /song/{id}/verses:
+    get:
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: paginating results - ?page=1
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      summary: Retrieves song's verses based on given song ID
+  /songs:
+    get:
+      parameters:
+      - description: paginating results - ?page=1
+        in: query
+        name: page
+        type: string
+      - description: song search - ?title=Some title
+        in: query
+        name: title
+        type: string
+      - description: song search - ?description=Some descr
+        in: query
+        name: description
+        type: string
+      - description: song search - ?author=Some author
+        in: query
+        name: author
+        type: string
+      - description: song search - ?song_group=Some group
+        in: query
+        name: song_group
+        type: string
+      - description: song release_date - ?release_date=1995-07-16
+        in: query
+        name: release_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Song'
+        "500":
+          description: Internal Server Error
+      summary: Retrieves songs
+swagger: "2.0"

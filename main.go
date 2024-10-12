@@ -51,6 +51,7 @@ func Paginate(r *http.Request) func(db *gorm.DB) *gorm.DB {
 // @Summary Retrieves song's verses based on given song ID
 // @Produce json
 // @Param id path integer true "Song ID"
+// @Param page query string false "paginating results - ?page=1"
 // @Success 200
 // @Failure 404
 // @Router /song/{id}/verses [GET]
