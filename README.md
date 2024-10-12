@@ -4,12 +4,21 @@ Small go service for managing song library with REST API.
 
 ## Installation
 
-Clont the repo using git clone .
+Clone the repo using git clone:
 
 ```bash
 git clone https://github.com/ladovod444/songs-library.git
 ```
 
+Create postgress database 'songs' and set parameters for database in .env,
+e.g.:
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=db
+DATABASE_NAME=songs
+```
 ## Usage
 Run the command in the root
 ```bash
