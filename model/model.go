@@ -36,20 +36,6 @@ func init() {
 	}
 }
 
-// CreateSong Function to create data for testing
-func CreateSong(title string, author string, group string, link string, description string, releaseDate int64, verses []Verses) {
-	DB.Create(&Song{
-		Model:       gorm.Model{},
-		Title:       title,
-		Author:      author,
-		SongGroup:   group,
-		Link:        link,
-		Description: description,
-		ReleaseDate: time.Unix(releaseDate, 0),
-		Verses:      verses,
-	})
-}
-
 func InitDatabase() {
 	host, exists := os.LookupEnv("DB_HOST")
 	if !exists {

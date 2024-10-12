@@ -280,40 +280,6 @@ func main() {
 	fmt.Println("Initializing database")
 	model.InitDatabase()
 
-	// Create 10 dummy Songs
-	//for i := 1; i < 10; i++ {
-	//
-	//	verses := []model.Verses{
-	//		model.Verses{
-	//			Text: "Best verse" + strconv.Itoa(i),
-	//		},
-	//		model.Verses{
-	//			Text: "Best verse" + strconv.Itoa(i),
-	//		},
-	//	}
-	//
-	//	// Prepare data for database
-	//	format := "02.01.2006"
-	//	date := "16.07.1924"
-	//	time_to_db, err := time.Parse(format, date)
-	//
-	//	if err != nil {
-	//		log.Fatal(err.Error())
-	//	} else {
-	//		fmt.Println(time_to_db)
-	//		//os.Exit(0)
-	//	}
-	//
-	//	model.CreateSong(
-	//		"Summer"+strconv.Itoa(i),
-	//		"Author"+strconv.Itoa(i),
-	//		"Muse"+strconv.Itoa(i),
-	//		"https://rutube.ru/video/ef914d8a43fb1a111"+strconv.Itoa(i),
-	//		"Test song description",
-	//		time_to_db.Unix(),
-	//		verses)
-	//}
-
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/v1/songs", getSongs).Methods("GET")
