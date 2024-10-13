@@ -54,6 +54,7 @@ func Paginate(r *http.Request) func(db *gorm.DB) *gorm.DB {
 // @Param page query string false "paginating results - ?page=1"
 // @Success 200
 // @Failure 404
+// @Failure 500
 // @Router /song/{id}/verses [GET]
 func getSongVerses(w http.ResponseWriter, r *http.Request) {
 	log.Println("Receiving songs data")
@@ -132,6 +133,7 @@ func getSongs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
+		w.WriteHeader(http.StatusOK)
 		_, err = w.Write(res)
 	}
 
@@ -142,7 +144,8 @@ func getSongs(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path integer true "Song ID"
 // @Success 200
-// @Failure 404
+// @Failure 400
+// @Failure 500
 // @Router /song/{id} [GET]
 func getSong(w http.ResponseWriter, r *http.Request) {
 	log.Println("Receiving song data")
@@ -166,6 +169,7 @@ func getSong(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 		} else {
+			w.WriteHeader(http.StatusOK)
 			_, err = w.Write(res)
 		}
 	}
@@ -176,7 +180,7 @@ func getSong(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Accept json
 // @Param body body model.Song true "body"
-// @Success 200
+// @Success 201
 // @Failure 500
 // @Router /song [POST]
 func createSong(w http.ResponseWriter, r *http.Request) {
@@ -212,7 +216,8 @@ func createSong(w http.ResponseWriter, r *http.Request) {
 // @Param id path integer true "Song ID"
 // @Param body body Song true "body"
 // @Success 200
-// @Failure 500
+// @Failure 400
+// @Failure 404
 // @Router /song/{id} [PUT]
 func updateSong(w http.ResponseWriter, r *http.Request) {
 	log.Println("Updating song...")
@@ -251,6 +256,7 @@ func updateSong(w http.ResponseWriter, r *http.Request) {
 // @Summary Delete a song by id
 // @Param id path integer true "PAGE"
 // @Success 200
+// @Failure 400
 // @Router /song/{id} [DELETE]
 func deleteSong(w http.ResponseWriter, r *http.Request) {
 	log.Println("Deleting song...")
